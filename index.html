@@ -5,31 +5,34 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Unblocked Games Hub</title>
   <style>
+    * {
+      box-sizing: border-box;
+    }
     body {
-      background-color: #121212;
-      color: #fff;
-      font-family: Arial, sans-serif;
       margin: 0;
-      padding: 0;
+      font-family: Arial, sans-serif;
+      background: #121212;
+      color: #fff;
       text-align: center;
     }
     h1 {
-      background-color: #1f1f1f;
+      background: #1e1e1e;
       margin: 0;
       padding: 20px;
+      font-size: 24px;
     }
     .game-container {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 15px;
       padding: 20px;
+      max-width: 1200px;
+      margin: auto;
     }
     .game {
-      background-color: #1e1e1e;
-      margin: 10px;
-      padding: 15px;
+      background: #1c1c1c;
       border-radius: 10px;
-      width: 300px;
+      padding: 10px;
       cursor: pointer;
       transition: transform 0.2s ease;
     }
@@ -37,29 +40,29 @@
       transform: scale(1.03);
     }
     .game h2 {
-      font-size: 18px;
-      margin-bottom: 10px;
+      font-size: 16px;
+      margin: 10px 0;
     }
     .game iframe {
       width: 100%;
-      height: 200px;
+      aspect-ratio: 16/9;
       border: none;
-      border-radius: 8px;
+      border-radius: 6px;
       pointer-events: none;
     }
 
-    /* Fullscreen overlay */
+    /* Fullscreen Overlay */
     #fullscreen-container {
       position: fixed;
       top: 0; left: 0;
-      width: 100vw;
-      height: 100vh;
+      width: 100%;
+      height: 100%;
       background: #000;
-      z-index: 1000;
       display: none;
       flex-direction: column;
       align-items: center;
       justify-content: center;
+      z-index: 9999;
     }
     #fullscreen-iframe {
       width: 100%;
@@ -68,31 +71,41 @@
     }
     #close-fullscreen {
       position: absolute;
-      top: 10px;
-      left: 10px;
-      z-index: 1001;
+      top: 15px;
+      left: 15px;
+      padding: 10px 15px;
       background: #ff0040;
-      color: white;
-      padding: 10px 20px;
+      color: #fff;
+      font-size: 16px;
       border: none;
       border-radius: 8px;
       cursor: pointer;
-      font-size: 16px;
+      z-index: 10000;
+    }
+
+    @media (max-width: 600px) {
+      h1 {
+        font-size: 20px;
+        padding: 15px;
+      }
+      .game h2 {
+        font-size: 14px;
+      }
     }
   </style>
 </head>
 <body>
   <h1>🔥 Unblocked Games Hub 🔥</h1>
 
-  <!-- Fullscreen Game Overlay -->
+  <!-- Fullscreen Container -->
   <div id="fullscreen-container">
     <button id="close-fullscreen">← Back</button>
     <iframe id="fullscreen-iframe" allowfullscreen></iframe>
   </div>
 
+  <!-- Game Grid -->
   <div class="game-container" id="games">
-
-    <!-- Example Game Template (copy as needed) -->
+    <!-- Example Game Card -->
     <div class="game" data-url="https://1v1.lol">
       <h2>1v1.LOL</h2>
       <iframe src="https://1v1.lol"></iframe>
@@ -192,24 +205,22 @@
       <h2>Among Us Online</h2>
       <iframe src="https://amongusplay.online/"></iframe>
     </div>
-
   </div>
 
   <script>
-    const games = document.querySelectorAll(".game");
     const fullscreenContainer = document.getElementById("fullscreen-container");
     const fullscreenIframe = document.getElementById("fullscreen-iframe");
-    const closeFullscreen = document.getElementById("close-fullscreen");
+    const closeBtn = document.getElementById("close-fullscreen");
 
-    games.forEach(game => {
+    document.querySelectorAll(".game").forEach(game => {
       game.addEventListener("click", () => {
-        const url = game.getAttribute("data-url");
+        const url = game.dataset.url;
         fullscreenIframe.src = url;
         fullscreenContainer.style.display = "flex";
       });
     });
 
-    closeFullscreen.addEventListener("click", () => {
+    closeBtn.addEventListener("click", () => {
       fullscreenIframe.src = "";
       fullscreenContainer.style.display = "none";
     });
