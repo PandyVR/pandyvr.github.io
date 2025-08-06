@@ -30,7 +30,11 @@
       padding: 15px;
       border-radius: 10px;
       width: 300px;
-      box-shadow: 0 0 10px rgba(0,0,0,0.5);
+      cursor: pointer;
+      transition: transform 0.2s ease;
+    }
+    .game:hover {
+      transform: scale(1.03);
     }
     .game h2 {
       font-size: 18px;
@@ -41,113 +45,174 @@
       height: 200px;
       border: none;
       border-radius: 8px;
+      pointer-events: none;
+    }
+
+    /* Fullscreen overlay */
+    #fullscreen-container {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100vw;
+      height: 100vh;
+      background: #000;
+      z-index: 1000;
+      display: none;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+    #fullscreen-iframe {
+      width: 100%;
+      height: 100%;
+      border: none;
+    }
+    #close-fullscreen {
+      position: absolute;
+      top: 10px;
+      left: 10px;
+      z-index: 1001;
+      background: #ff0040;
+      color: white;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 16px;
     }
   </style>
 </head>
 <body>
   <h1>🔥 Unblocked Games Hub 🔥</h1>
-  <div class="game-container">
 
-    <div class="game">
+  <!-- Fullscreen Game Overlay -->
+  <div id="fullscreen-container">
+    <button id="close-fullscreen">← Back</button>
+    <iframe id="fullscreen-iframe" allowfullscreen></iframe>
+  </div>
+
+  <div class="game-container" id="games">
+
+    <!-- Example Game Template (copy as needed) -->
+    <div class="game" data-url="https://1v1.lol">
       <h2>1v1.LOL</h2>
       <iframe src="https://1v1.lol"></iframe>
     </div>
 
-    <div class="game">
+    <div class="game" data-url="https://drifthunters.com">
       <h2>Drift Hunters</h2>
       <iframe src="https://drifthunters.com"></iframe>
     </div>
 
-    <div class="game">
+    <div class="game" data-url="https://slopegame.online/slope">
       <h2>Slope</h2>
       <iframe src="https://slopegame.online/slope"></iframe>
     </div>
 
-    <div class="game">
+    <div class="game" data-url="https://orteil.dashnet.org/cookieclicker/">
       <h2>Cookie Clicker</h2>
       <iframe src="https://orteil.dashnet.org/cookieclicker/"></iframe>
     </div>
 
-    <div class="game">
+    <div class="game" data-url="https://retrobowl.me/">
       <h2>Retro Bowl</h2>
       <iframe src="https://retrobowl.me/"></iframe>
     </div>
 
-    <div class="game">
+    <div class="game" data-url="https://tunnelrushonline.com/">
       <h2>Tunnel Rush</h2>
       <iframe src="https://tunnelrushonline.com/"></iframe>
     </div>
 
-    <div class="game">
+    <div class="game" data-url="https://bitlifeonline.com/">
       <h2>BitLife</h2>
       <iframe src="https://bitlifeonline.com/"></iframe>
     </div>
 
-    <div class="game">
+    <div class="game" data-url="https://stickmanhook.io/">
       <h2>Stickman Hook</h2>
       <iframe src="https://stickmanhook.io/"></iframe>
     </div>
 
-    <div class="game">
+    <div class="game" data-url="https://www.coolmathgames.com/0-moto-x3m">
       <h2>Moto X3M</h2>
       <iframe src="https://www.coolmathgames.com/0-moto-x3m"></iframe>
     </div>
 
-    <div class="game">
+    <div class="game" data-url="https://flappybird.io/">
       <h2>Flappy Bird</h2>
       <iframe src="https://flappybird.io/"></iframe>
     </div>
 
-    <div class="game">
+    <div class="game" data-url="https://tetris.com/play-tetris">
       <h2>Tetris</h2>
       <iframe src="https://tetris.com/play-tetris"></iframe>
     </div>
 
-    <div class="game">
+    <div class="game" data-url="https://run3.io/">
       <h2>Run 3</h2>
       <iframe src="https://run3.io/"></iframe>
     </div>
 
-    <div class="game">
+    <div class="game" data-url="https://basketballstars.co/">
       <h2>Basketball Stars</h2>
       <iframe src="https://basketballstars.co/"></iframe>
     </div>
 
-    <div class="game">
+    <div class="game" data-url="https://geometrydashonline.io/">
       <h2>Geometry Dash</h2>
       <iframe src="https://geometrydashonline.io/"></iframe>
     </div>
 
-    <div class="game">
+    <div class="game" data-url="https://paper-io.com/">
       <h2>Paper.io 2</h2>
       <iframe src="https://paper-io.com/"></iframe>
     </div>
 
-    <div class="game">
+    <div class="game" data-url="https://shellshock.io/">
       <h2>Shell Shockers</h2>
       <iframe src="https://shellshock.io/"></iframe>
     </div>
 
-    <div class="game">
+    <div class="game" data-url="https://krunker.io/">
       <h2>Krunker.io</h2>
       <iframe src="https://krunker.io/"></iframe>
     </div>
 
-    <div class="game">
+    <div class="game" data-url="https://classic.minecraft.net">
       <h2>Minecraft Classic</h2>
       <iframe src="https://classic.minecraft.net"></iframe>
     </div>
 
-    <div class="game">
+    <div class="game" data-url="https://vex6.io/">
       <h2>Vex 6</h2>
       <iframe src="https://vex6.io/"></iframe>
     </div>
 
-    <div class="game">
+    <div class="game" data-url="https://amongusplay.online/">
       <h2>Among Us Online</h2>
       <iframe src="https://amongusplay.online/"></iframe>
     </div>
 
   </div>
+
+  <script>
+    const games = document.querySelectorAll(".game");
+    const fullscreenContainer = document.getElementById("fullscreen-container");
+    const fullscreenIframe = document.getElementById("fullscreen-iframe");
+    const closeFullscreen = document.getElementById("close-fullscreen");
+
+    games.forEach(game => {
+      game.addEventListener("click", () => {
+        const url = game.getAttribute("data-url");
+        fullscreenIframe.src = url;
+        fullscreenContainer.style.display = "flex";
+      });
+    });
+
+    closeFullscreen.addEventListener("click", () => {
+      fullscreenIframe.src = "";
+      fullscreenContainer.style.display = "none";
+    });
+  </script>
 </body>
 </html>
