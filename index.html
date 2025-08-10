@@ -1,229 +1,188 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Unblocked Games Hub</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Auto Shorts Generator — Proof of concept</title>
   <style>
-    * {
-      box-sizing: border-box;
-    }
-    body {
-      margin: 0;
-      font-family: Arial, sans-serif;
-      background: #121212;
-      color: #fff;
-      text-align: center;
-    }
-    h1 {
-      background: #1e1e1e;
-      margin: 0;
-      padding: 20px;
-      font-size: 24px;
-    }
-    .game-container {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-      gap: 15px;
-      padding: 20px;
-      max-width: 1200px;
-      margin: auto;
-    }
-    .game {
-      background: #1c1c1c;
-      border-radius: 10px;
-      padding: 10px;
-      cursor: pointer;
-      transition: transform 0.2s ease;
-    }
-    .game:hover {
-      transform: scale(1.03);
-    }
-    .game h2 {
-      font-size: 16px;
-      margin: 10px 0;
-    }
-    .game iframe {
-      width: 100%;
-      aspect-ratio: 16/9;
-      border: none;
-      border-radius: 6px;
-      pointer-events: none;
-    }
-
-    /* Fullscreen Overlay */
-    #fullscreen-container {
-      position: fixed;
-      top: 0; left: 0;
-      width: 100%;
-      height: 100%;
-      background: #000;
-      display: none;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      z-index: 9999;
-    }
-    #fullscreen-iframe {
-      width: 100%;
-      height: 100%;
-      border: none;
-    }
-    #close-fullscreen {
-      position: absolute;
-      top: 15px;
-      left: 15px;
-      padding: 10px 15px;
-      background: #ff0040;
-      color: #fff;
-      font-size: 16px;
-      border: none;
-      border-radius: 8px;
-      cursor: pointer;
-      z-index: 10000;
-    }
-
-    @media (max-width: 600px) {
-      h1 {
-        font-size: 20px;
-        padding: 15px;
-      }
-      .game h2 {
-        font-size: 14px;
-      }
-    }
+    body{font-family:Inter,system-ui,Arial;margin:16px;background:#0f172a;color:#e6eef8}
+    .card{background:#0b1220;padding:16px;border-radius:12px;margin-bottom:12px;box-shadow:0 6px 20px rgba(2,6,23,.6)}
+    label{display:block;margin:8px 0 6px}
+    input,button,select{padding:8px;border-radius:8px;border:1px solid rgba(255,255,255,.06);background:#071028;color:inherit}
+    small{color:#9fb0d6}
+    #log{white-space:pre-wrap;font-family:monospace;background:#041022;padding:12px;border-radius:8px;max-height:220px;overflow:auto}
   </style>
 </head>
 <body>
-  <h1>🔥 Unblocked Games Hub 🔥</h1>
-
-  <!-- Fullscreen Container -->
-  <div id="fullscreen-container">
-    <button id="close-fullscreen">← Back</button>
-    <iframe id="fullscreen-iframe" allowfullscreen></iframe>
+  <h1>Auto Shorts Generator — POC</h1>
+  <div class="card">
+    <strong>What this is</strong>
+    <p>Drop a soundtrack + several vertical clips. This POC detects beats (naive energy-peaks) and stitches trimmed clips to those beats using ffmpeg.wasm. It's meant as a starter template you can host on GitHub Pages.</p>
+    <small>Important: browser-side FFmpeg is CPU+RAM heavy. Use short clips for testing.</small>
   </div>
 
-  <!-- Game Grid -->
-  <div class="game-container" id="games">
-    <!-- Example Game Card -->
-    <div class="game" data-url="https://1v1.lol">
-      <h2>1v1.LOL</h2>
-      <iframe src="https://1v1.lol"></iframe>
-    </div>
+  <div class="card">
+    <label>1) Upload audio (song)</label>
+    <input id="audioInput" type="file" accept="audio/*">
 
-    <div class="game" data-url="https://drifthunters.com">
-      <h2>Drift Hunters</h2>
-      <iframe src="https://drifthunters.com"></iframe>
-    </div>
+    <label>2) Upload vertical clips (MP4, multiple)</label>
+    <input id="videosInput" type="file" accept="video/*" multiple>
 
-    <div class="game" data-url="https://slopegame.online/slope">
-      <h2>Slope</h2>
-      <iframe src="https://slopegame.online/slope"></iframe>
-    </div>
+    <label>Output length (seconds)</label>
+    <input id="outLen" type="number" value="15" min="5" max="60">
 
-    <div class="game" data-url="https://orteil.dashnet.org/cookieclicker/">
-      <h2>Cookie Clicker</h2>
-      <iframe src="https://orteil.dashnet.org/cookieclicker/"></iframe>
-    </div>
-
-    <div class="game" data-url="https://retrobowl.me/">
-      <h2>Retro Bowl</h2>
-      <iframe src="https://retrobowl.me/"></iframe>
-    </div>
-
-    <div class="game" data-url="https://tunnelrushonline.com/">
-      <h2>Tunnel Rush</h2>
-      <iframe src="https://tunnelrushonline.com/"></iframe>
-    </div>
-
-    <div class="game" data-url="https://bitlifeonline.com/">
-      <h2>BitLife</h2>
-      <iframe src="https://bitlifeonline.com/"></iframe>
-    </div>
-
-    <div class="game" data-url="https://stickmanhook.io/">
-      <h2>Stickman Hook</h2>
-      <iframe src="https://stickmanhook.io/"></iframe>
-    </div>
-
-    <div class="game" data-url="https://www.coolmathgames.com/0-moto-x3m">
-      <h2>Moto X3M</h2>
-      <iframe src="https://www.coolmathgames.com/0-moto-x3m"></iframe>
-    </div>
-
-    <div class="game" data-url="https://flappybird.io/">
-      <h2>Flappy Bird</h2>
-      <iframe src="https://flappybird.io/"></iframe>
-    </div>
-
-    <div class="game" data-url="https://tetris.com/play-tetris">
-      <h2>Tetris</h2>
-      <iframe src="https://tetris.com/play-tetris"></iframe>
-    </div>
-
-    <div class="game" data-url="https://run3.io/">
-      <h2>Run 3</h2>
-      <iframe src="https://run3.io/"></iframe>
-    </div>
-
-    <div class="game" data-url="https://basketballstars.co/">
-      <h2>Basketball Stars</h2>
-      <iframe src="https://basketballstars.co/"></iframe>
-    </div>
-
-    <div class="game" data-url="https://geometrydashonline.io/">
-      <h2>Geometry Dash</h2>
-      <iframe src="https://geometrydashonline.io/"></iframe>
-    </div>
-
-    <div class="game" data-url="https://paper-io.com/">
-      <h2>Paper.io 2</h2>
-      <iframe src="https://paper-io.com/"></iframe>
-    </div>
-
-    <div class="game" data-url="https://shellshock.io/">
-      <h2>Shell Shockers</h2>
-      <iframe src="https://shellshock.io/"></iframe>
-    </div>
-
-    <div class="game" data-url="https://krunker.io/">
-      <h2>Krunker.io</h2>
-      <iframe src="https://krunker.io/"></iframe>
-    </div>
-
-    <div class="game" data-url="https://classic.minecraft.net">
-      <h2>Minecraft Classic</h2>
-      <iframe src="https://classic.minecraft.net"></iframe>
-    </div>
-
-    <div class="game" data-url="https://vex6.io/">
-      <h2>Vex 6</h2>
-      <iframe src="https://vex6.io/"></iframe>
-    </div>
-
-    <div class="game" data-url="https://amongusplay.online/">
-      <h2>Among Us Online</h2>
-      <iframe src="https://amongusplay.online/"></iframe>
+    <div style="margin-top:12px">
+      <button id="analyzeBtn">Analyze audio (find beats)</button>
+      <button id="generateBtn" disabled>Generate Short</button>
     </div>
   </div>
 
-  <script>
-    const fullscreenContainer = document.getElementById("fullscreen-container");
-    const fullscreenIframe = document.getElementById("fullscreen-iframe");
-    const closeBtn = document.getElementById("close-fullscreen");
+  <div class="card">
+    <label>Detected beat timestamps</label>
+    <div id="beats">(no analysis yet)</div>
+  </div>
 
-    document.querySelectorAll(".game").forEach(game => {
-      game.addEventListener("click", () => {
-        const url = game.dataset.url;
-        fullscreenIframe.src = url;
-        fullscreenContainer.style.display = "flex";
-      });
+  <div class="card">
+    <label>Log / progress</label>
+    <div id="log">idle</div>
+  </div>
+
+  <script type="module">
+    import { createFFmpeg, fetchFile } from 'https://cdn.jsdelivr.net/npm/@ffmpeg/ffmpeg@0.11.6/dist/ffmpeg.min.js';
+
+    const logEl = document.getElementById('log');
+    function log(...args){ logEl.textContent += '\n' + args.join(' '); logEl.scrollTop = logEl.scrollHeight }
+
+    const audioIn = document.getElementById('audioInput');
+    const videosIn = document.getElementById('videosInput');
+    const analyzeBtn = document.getElementById('analyzeBtn');
+    const generateBtn = document.getElementById('generateBtn');
+    const beatsEl = document.getElementById('beats');
+    const outLenEl = document.getElementById('outLen');
+
+    let audioFile = null;
+    let videoFiles = [];
+    let beats = [];
+
+    audioIn.addEventListener('change', e=>{ audioFile = e.target.files[0]; generateBtn.disabled = false; beatsEl.textContent='(audio loaded, run analysis)'; });
+    videosIn.addEventListener('change', e=>{ videoFiles = Array.from(e.target.files); log('loaded', videoFiles.length, 'clips'); generateBtn.disabled = false });
+
+    // --- naive beat detection using WebAudio energy peaks ---
+    async function analyzeAudio(file){
+      beatsEl.textContent = 'analyzing...';
+      const arrBuf = await file.arrayBuffer();
+      const ctx = new OfflineAudioContext(1, 44100 * 180, 44100); // up to 3 minutes safe
+      const audioBuffer = await ctx.decodeAudioData(arrBuf);
+      const data = audioBuffer.getChannelData(0);
+      const sampleRate = audioBuffer.sampleRate;
+
+      // frame energy
+      const frameSize = Math.floor(sampleRate * 0.1); // 100ms
+      const energies = [];
+      for(let i=0;i<data.length;i+=frameSize){
+        let s=0; for(let j=i;j<Math.min(i+frameSize,data.length);j++) s += data[j]*data[j];
+        energies.push(s);
+      }
+      // smooth
+      const smooth = energies.map((v,i)=>{ let sum=0, c=0; for(let j=i-2;j<=i+2;j++) if(energies[j]!=null){sum+=energies[j]; c++} return sum/c });
+      // find peaks where energy > local mean * threshold
+      const peaks = [];
+      for(let i=2;i<smooth.length-2;i++){
+        const localMean = (smooth[i-2]+smooth[i-1]+smooth[i]+smooth[i+1]+smooth[i+2])/5;
+        if(smooth[i] > localMean * 1.8 && smooth[i] > smooth[i-1] && smooth[i] > smooth[i+1]){
+          peaks.push(i * (frameSize / sampleRate));
+        }
+      }
+      beats = peaks.slice(0, 20); // cap
+      beatsEl.textContent = beats.length ? beats.map(b=>b.toFixed(2)+'s').join(', ') : '(no beats found)';
+      log('detected', beats.length, 'peaks');
+    }
+
+    analyzeBtn.addEventListener('click', async ()=>{
+      if(!audioFile){ alert('load audio'); return }
+      beats = [];
+      beatsEl.textContent = 'working...';
+      await analyzeAudio(audioFile);
     });
 
-    closeBtn.addEventListener("click", () => {
-      fullscreenIframe.src = "";
-      fullscreenContainer.style.display = "none";
+    // --- FFmpeg wiring ---
+    const ffmpeg = createFFmpeg({ log: true });
+    let ffLoaded = false;
+
+    async function ensureFF(){ if(!ffLoaded){ log('loading ffmpeg.wasm (this can take a while)...'); await ffmpeg.load(); ffLoaded=true; log('ffmpeg ready'); } }
+
+    // build a simple edit: for each beat, take next clip and trim to beat spacing
+    async function generate(){
+      if(!audioFile || videoFiles.length===0){ alert('need audio and clips'); return }
+      await ensureFF();
+      log('writing inputs to FS...');
+      ffmpeg.FS('writeFile','song.mp3', await fetchFile(audioFile));
+      // write video files
+      for(let i=0;i<videoFiles.length;i++){
+        const name = `clip${i}.mp4`;
+        ffmpeg.FS('writeFile', name, await fetchFile(videoFiles[i]));
+        log('wrote', name);
+      }
+
+      const targetLen = parseInt(outLenEl.value || '15');
+      // pick beats that fit into targetLen
+      const usableBeats = beats.filter(b=>b < targetLen);
+      if(usableBeats.length===0){
+        // fallback to evenly spaced times
+        const step = targetLen / Math.min(videoFiles.length, 8);
+        for(let i=0;i<Math.min(videoFiles.length,8);i++) usableBeats.push(i*step);
+        log('no detected beats — using fallback timings');
+      }
+
+      // for each beat, pick a clip and trim a short segment (0.8 to 1.6s) to place there
+      const segs = [];
+      for(let i=0;i<usableBeats.length && i<videoFiles.length;i++){
+        const start = Math.max(0, usableBeats[i]);
+        const dur = Math.min(1.2, targetLen - (usableBeats[i] || 0));
+        const inName = `clip${i}.mp4`;
+        const outName = `seg${i}.mp4`;
+        // ffmpeg trim: seek to 0 for source but we'll simply take the first dur seconds — easier and faster in wasm
+        // If clips are longer you'd implement -ss to pick random offset; keeping it simple here.
+        const cmd = ['-i', inName, '-t', `${dur}`, '-c', 'copy', outName];
+        log('running ffmpeg for segment', outName);
+        try{ await ffmpeg.run(...cmd); }catch(e){ log('segment failed', e.message) }
+        segs.push(outName);
+      }
+
+      // concatenate segments
+      // build concat list file
+      let concatTxt = segs.map(s=>`file '${s}'`).join('\n');
+      ffmpeg.FS('writeFile','concat.txt', concatTxt);
+      const final = 'out.mp4';
+      log('concatenating', segs.length, 'segments');
+      try{
+        await ffmpeg.run('-f','concat','-safe','0','-i','concat.txt','-c','copy', final);
+        log('concatenation done');
+      }catch(e){
+        log('concat failed — will try re-encode concat fallback');
+        // fallback re-encode concat
+        try{
+          await ffmpeg.run('-i','concat.txt','-f','mp4','-y', final);
+        }catch(err){ log('fallback concat failed', err.message) }
+      }
+
+      // read file and generate blob URL
+      const data = ffmpeg.FS('readFile', final);
+      const videoBlob = new Blob([data.buffer], { type: 'video/mp4' });
+      const url = URL.createObjectURL(videoBlob);
+      const a = document.createElement('a'); a.href = url; a.download = 'short.mp4'; a.textContent = 'Download Generated Short'; a.style.display='block';
+      log('Done — your video is ready. Click link to download.');
+      log('If the link does not appear, check console for errors.');
+      const downloadEl = document.createElement('div'); downloadEl.appendChild(a);
+      document.body.appendChild(downloadEl);
+    }
+
+    generateBtn.addEventListener('click', async ()=>{
+      generateBtn.disabled = true; log('starting generation...');
+      try{ await generate(); }catch(e){ log('generation failed', e.message) }
+      generateBtn.disabled = false;
     });
+
   </script>
 </body>
 </html>
