@@ -17,7 +17,7 @@
   <h1>Auto Shorts Generator — POC</h1>
   <div class="card">
     <strong>What this is</strong>
-    <p>Drop a soundtrack + several vertical clips. This POC detects beats (naive energy-peaks) and stitches trimmed clips to those beats using ffmpeg.wasm. It's meant as a starter template you can host on GitHub Pages.</p>
+    <p>Drop a soundtrack + several clips. This POC detects beats (naive energy-peaks) and stitches trimmed clips to those beats using ffmpeg.wasm. It's meant as a starter template you can host on GitHub Pages.</p>
     <small>Important: browser-side FFmpeg is CPU+RAM heavy. Use short clips for testing.</small>
   </div>
 
@@ -25,15 +25,14 @@
     <label>1) Upload audio (song)</label>
     <input id="audioInput" type="file" accept="audio/*">
 
-    <label>2) Upload vertical clips (MP4, multiple)</label>
+    <label>2) Upload clips (MP4, multiple)</label>
     <input id="videosInput" type="file" accept="video/*" multiple>
 
     <label>Output length (seconds)</label>
     <input id="outLen" type="number" value="15" min="5" max="60">
 
     <div style="margin-top:12px">
-      <button id="analyzeBtn">Analyze audio (find beats)</button>
-      <button id="generateBtn" disabled>Generate Short</button>
+      <button id="generateAllBtn" disabled>Analyze & Generate Short</button>
     </div>
   </div>
 
@@ -51,12 +50,11 @@
     import { createFFmpeg, fetchFile } from 'https://cdn.jsdelivr.net/npm/@ffmpeg/ffmpeg@0.11.6/dist/ffmpeg.min.js';
 
     const logEl = document.getElementById('log');
-    function log(...args){ logEl.textContent += '\n' + args.join(' '); logEl.scrollTop = logEl.scrollHeight }
+    function log(...args){ logEl.textContent += '\\n' + args.join(' '); logEl.scrollTop = logEl.scrollHeight }
 
     const audioIn = document.getElementById('audioInput');
     const videosIn = document.getElementById('videosInput');
-    const analyzeBtn = document.getElementById('analyzeBtn');
-    const generateBtn = document.getElementById('generateBtn');
+    const generateAllBtn = document.getElementById('generateAllBtn');
     const beatsEl = document.getElementById('beats');
     const outLenEl = document.getElementById('outLen');
 
@@ -64,8 +62,20 @@
     let videoFiles = [];
     let beats = [];
 
-    audioIn.addEventListener('change', e=>{ audioFile = e.target.files[0]; generateBtn.disabled = false; beatsEl.textContent='(audio loaded, run analysis)'; });
-    videosIn.addEventListener('change', e=>{ videoFiles = Array.from(e.target.files); log('loaded', videoFiles.length, 'clips'); generateBtn.disabled = false });
+    // Enable generateAllBtn only if both audio and at least one clip loaded
+    function updateGenerateBtnState() {
+      generateAllBtn.disabled = !(audioFile && videoFiles.length > 0);
+    }
+    audioIn.addEventListener('change', e=>{
+      audioFile = e.target.files[0];
+      beatsEl.textContent = '(audio loaded, run generation)';
+      updateGenerateBtnState();
+    });
+    videosIn.addEventListener('change', e=>{
+      videoFiles = Array.from(e.target.files);
+      log('loaded', videoFiles.length, 'clips');
+      updateGenerateBtnState();
+    });
 
     // --- naive beat detection using WebAudio energy peaks ---
     async function analyzeAudio(file){
@@ -98,18 +108,18 @@
       log('detected', beats.length, 'peaks');
     }
 
-    analyzeBtn.addEventListener('click', async ()=>{
-      if(!audioFile){ alert('load audio'); return }
-      beats = [];
-      beatsEl.textContent = 'working...';
-      await analyzeAudio(audioFile);
-    });
-
     // --- FFmpeg wiring ---
     const ffmpeg = createFFmpeg({ log: true });
     let ffLoaded = false;
 
-    async function ensureFF(){ if(!ffLoaded){ log('loading ffmpeg.wasm (this can take a while)...'); await ffmpeg.load(); ffLoaded=true; log('ffmpeg ready'); } }
+    async function ensureFF(){ 
+      if(!ffLoaded){ 
+        log('loading ffmpeg.wasm (this can take a while)...'); 
+        await ffmpeg.load(); 
+        ffLoaded=true; 
+        log('ffmpeg ready'); 
+      } 
+    }
 
     // build a simple edit: for each beat, take next clip and trim to beat spacing
     async function generate(){
@@ -126,9 +136,10 @@
 
       const targetLen = parseInt(outLenEl.value || '15');
       // pick beats that fit into targetLen
-      const usableBeats = beats.filter(b=>b < targetLen);
+      let usableBeats = beats.filter(b=>b < targetLen);
       if(usableBeats.length===0){
         // fallback to evenly spaced times
+        usableBeats = [];
         const step = targetLen / Math.min(videoFiles.length, 8);
         for(let i=0;i<Math.min(videoFiles.length,8);i++) usableBeats.push(i*step);
         log('no detected beats — using fallback timings');
@@ -141,8 +152,7 @@
         const dur = Math.min(1.2, targetLen - (usableBeats[i] || 0));
         const inName = `clip${i}.mp4`;
         const outName = `seg${i}.mp4`;
-        // ffmpeg trim: seek to 0 for source but we'll simply take the first dur seconds — easier and faster in wasm
-        // If clips are longer you'd implement -ss to pick random offset; keeping it simple here.
+        // ffmpeg trim: take first dur seconds — no seek for simplicity
         const cmd = ['-i', inName, '-t', `${dur}`, '-c', 'copy', outName];
         log('running ffmpeg for segment', outName);
         try{ await ffmpeg.run(...cmd); }catch(e){ log('segment failed', e.message) }
@@ -160,9 +170,9 @@
         log('concatenation done');
       }catch(e){
         log('concat failed — will try re-encode concat fallback');
-        // fallback re-encode concat
         try{
-          await ffmpeg.run('-i','concat.txt','-f','mp4','-y', final);
+          await ffmpeg.run('-f','concat','-safe','0','-i','concat.txt','-c:v','libx264','-preset','fast','-crf','23', final);
+          log('fallback concat succeeded');
         }catch(err){ log('fallback concat failed', err.message) }
       }
 
@@ -170,17 +180,29 @@
       const data = ffmpeg.FS('readFile', final);
       const videoBlob = new Blob([data.buffer], { type: 'video/mp4' });
       const url = URL.createObjectURL(videoBlob);
-      const a = document.createElement('a'); a.href = url; a.download = 'short.mp4'; a.textContent = 'Download Generated Short'; a.style.display='block';
+      const a = document.createElement('a'); 
+      a.href = url; 
+      a.download = 'short.mp4'; 
+      a.textContent = 'Download Generated Short'; 
+      a.style.display='block';
       log('Done — your video is ready. Click link to download.');
       log('If the link does not appear, check console for errors.');
-      const downloadEl = document.createElement('div'); downloadEl.appendChild(a);
+      const downloadEl = document.createElement('div'); 
+      downloadEl.appendChild(a);
       document.body.appendChild(downloadEl);
     }
 
-    generateBtn.addEventListener('click', async ()=>{
-      generateBtn.disabled = true; log('starting generation...');
-      try{ await generate(); }catch(e){ log('generation failed', e.message) }
-      generateBtn.disabled = false;
+    generateAllBtn.addEventListener('click', async ()=>{
+      generateAllBtn.disabled = true; 
+      log('starting analysis and generation...');
+      beatsEl.textContent = '(working...)';
+      try {
+        await analyzeAudio(audioFile);
+        await generate();
+      } catch(e) {
+        log('generation failed:', e.message);
+      }
+      generateAllBtn.disabled = false;
     });
 
   </script>
