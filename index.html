@@ -1,135 +1,145 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>WEBHOOK SPAMMER AND DELETER LOLL</title>
-    <style>
-        body {
-            background: url('background.png') no-repeat center center fixed;
-            background-size: cover;
-            color: white;
-            font-family: Arial, sans-serif;
-            text-align: center;
-            padding: 20px;
-        }
-        h1 {
-            font-size: 52px;
-            color: green; /* Matches the button color */
-        }
-        .form-container {
-            margin: 20px auto;
-            max-width: 400px;
-            background-color: rgba(0, 0, 0, 0.7);
-            padding: 20px;
-            border-radius: 10px;
-        }
-        .form-container input, .form-container textarea {
-            width: calc(100% - 20px); /* Adjust width to fit inside the padding of the box */
-            margin: 10px 0;
-            padding: 10px;
-            font-size: 16px;
-            border: none;
-            border-radius: 5px;
-        }
-        .form-container textarea {
-            resize: none; /* Disable resizing to fit neatly inside the box */
-        }
-        .form-container button {
-            width: 100%;
-            margin: 10px 0;
-            padding: 10px;
-            font-size: 16px;
-            cursor: pointer;
-            background-color: green;
-            color: white;
-            border: none;
-            border-radius: 5px;
-        }
-        .form-container button:hover {
-            background-color: darkgreen;
-        }
-    </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Luv Taggerss - Gorilla Tag Fan Game</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background: #121212;
+      color: #fff;
+    }
+
+    header {
+      background: #ff5ca2;
+      padding: 1.5rem 2rem;
+      text-align: center;
+    }
+
+    header h1 {
+      margin: 0;
+      font-size: 2.5rem;
+    }
+
+    nav {
+      margin-top: 1rem;
+    }
+
+    nav a {
+      margin: 0 15px;
+      color: white;
+      text-decoration: none;
+      font-weight: bold;
+    }
+
+    .hero {
+      text-align: center;
+      padding: 4rem 2rem;
+      background: linear-gradient(145deg, #ff5ca2, #ff99cc);
+    }
+
+    .hero h2 {
+      font-size: 2rem;
+      margin-bottom: 1rem;
+    }
+
+    .hero p {
+      font-size: 1.2rem;
+      margin-bottom: 2rem;
+    }
+
+    .download-btn {
+      background-color: #fff;
+      color: #ff5ca2;
+      padding: 0.75rem 2rem;
+      border: none;
+      font-size: 1rem;
+      cursor: pointer;
+      border-radius: 5px;
+      text-decoration: none;
+    }
+
+    section {
+      padding: 3rem 2rem;
+      max-width: 900px;
+      margin: auto;
+    }
+
+    .screenshots {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      justify-content: center;
+    }
+
+    .screenshots img {
+      width: 300px;
+      height: auto;
+      border-radius: 8px;
+    }
+
+    footer {
+      background-color: #222;
+      text-align: center;
+      padding: 2rem 1rem;
+      font-size: 0.9rem;
+      color: #aaa;
+    }
+
+    @media (max-width: 600px) {
+      .screenshots img {
+        width: 100%;
+      }
+    }
+  </style>
 </head>
 <body>
-    <h1>WEBHOOK SPAMMER AND DELETER</h1>
-    <div class="form-container">
-        <input type="text" id="webhookUrl" placeholder="Enter Webhook URL">
-        <textarea id="messageContent" rows="5" placeholder="Enter message to send"></textarea>
-        <button onclick="sendMessage()">SPAM Message</button>
-        <button onclick="deleteWebhook()">Delete Webhook</button>
-    </div>
 
-    <script>
-        async function sendMessage() {
-            const webhookUrl = document.getElementById('webhookUrl').value;
-            const content = document.getElementById('messageContent').value;
+  <header>
+    <h1>Luv Taggerss</h1>
+    <nav>
+      <a href="#about">About</a>
+      <a href="#screenshots">Screenshots</a>
+      <a href="#community">Community</a>
+    </nav>
+  </header>
 
-            if (!webhookUrl || !content) {
-                alert('Please enter both a webhook URL and a message.');
-                return;
-            }
+  <section class="hero">
+    <h2>Welcome to Luv Taggerss 💗</h2>
+    <p>A fan-made Gorilla Tag game where love meets the chaos of tag. Run, climb, swing — and tag with style!</p>
+    <a class="download-btn" href="#">Download Now</a>
+  </section>
 
-            try {
-                const response = await fetch(webhookUrl, {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ content })
-                  const response = await fetch(webhookUrl, {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ content })
-                  const response = await fetch(webhookUrl, {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ content })
-                  const response = await fetch(webhookUrl, {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ content })
+  <section id="about">
+    <h2>About the Game</h2>
+    <p><strong>Luv Taggerss</strong> is a free VR game inspired by Gorilla Tag, built for fun, movement, and an awesome community. Featuring pink aesthetic vibes, custom maps, and unique mechanics, it's a loving spin on the classic tag format.</p>
+  </section>
 
-                  const response = await fetch(webhookUrl, {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ content })
-                  
-                });
+  <section id="screenshots">
+  <h2>Screenshots</h2>
+  <div class="screenshots">
+    <p style="text-align: center; width: 100%; font-size: 1.2rem; color: #ccc;">
+      📷 Screenshots are currently not available. Check back soon!
+    </p>
+  </div>
+</section>
 
-                if (response.ok) {
-                    alert('Message sent successfully!');
-                } else {
-                    alert('Failed to send message. Check the webhook URL.');
-                }
-            } catch (error) {
-                console.error('Error sending message:', error);
-                alert('An error occurred. See console for details.');
-            }
-        }
 
-        async function deleteWebhook() {
-            const webhookUrl = document.getElementById('webhookUrl').value;
+  <section id="community">
+    <h2>Join the Community</h2>
+    <p>Follow us, give feedback, and find other taggers!</p>
+    <ul>
+      <li><a href="https://discord.gg/bVaJHaHTVh" target="_blank">💬 Discord</a></li>
+      <li><a href="https://tiktok.com/@asus.fling" target="_blank">🎥 TikTok</a></li>
+      <li><a href="https://youtube.com/@LuvTaggerss" target="_blank">▶️ YouTube</a></li>
+    </ul>
+  </section>
 
-            if (!webhookUrl) {
-                alert('Please enter the webhook URL.');
-                return;
-            }
+  <footer>
+    <p>© 2025 Luv Taggerss Fan Game. Not affiliated with Another Axiom or Gorilla Tag.</p>
+  </footer>
 
-            try {
-                const response = await fetch(webhookUrl, {
-                    method: 'DELETE'
-                });
-
-                if (response.ok) {
-                    alert('Webhook deleted successfully!');
-                } else {
-                    alert('Failed to delete webhook. Check the webhook URL.');
-                }
-            } catch (error) {
-                console.error('Error deleting webhook:', error);
-                alert('An error occurred. See console for details.');
-            }
-        }
-    </script>
 </body>
 </html>
