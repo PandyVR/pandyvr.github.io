@@ -2,119 +2,142 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>FartFling Jumpers</title>
+  <title>Project Games V3</title>
   <style>
     body {
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      background-color: #2f2f2f;
-      color: #e0e0e0;
       margin: 0;
-      padding: 0;
+      font-family: Arial, sans-serif;
+      background-color: #1a1a1a;
+      color: #eee;
     }
-
     header {
+      background-color: #111;
+      padding: 20px;
       text-align: center;
-      background-color: #3a3a3a;
-      padding: 40px 20px;
-      box-shadow: 0 2px 5px rgba(0,0,0,0.3);
     }
-
     header h1 {
-      font-size: 3rem;
-      color: #ffffff;
       margin: 0;
+      font-size: 3em;
+      color: #f0a500;
     }
-
-    header p {
-      font-size: 1.2rem;
-      color: #c0c0c0;
+    nav {
       margin-top: 10px;
     }
-
-    main {
-      max-width: 900px;
-      margin: 40px auto;
-      padding: 20px;
-      background-color: #3a3a3a;
-      border-radius: 10px;
-      box-shadow: 0 0 10px rgba(0,0,0,0.4);
+    nav a {
+      color: #ddd;
+      margin: 0 15px;
+      text-decoration: none;
+      font-weight: bold;
     }
-
-    section {
-      margin-bottom: 40px;
+    nav a:hover {
+      color: #f0a500;
     }
-
-    h2 {
-      border-bottom: 2px solid #666;
-      padding-bottom: 10px;
-      color: #fff;
-    }
-
-    .description {
-      font-size: 1.1rem;
-      line-height: 1.6;
-      color: #d0d0d0;
-    }
-
-    .screenshots {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 15px;
-      justify-content: center;
-      margin-top: 20px;
-    }
-
-    .screenshots img {
-      width: 280px;
-      border-radius: 10px;
-      transition: transform 0.2s, box-shadow 0.2s;
-      box-shadow: 0 0 8px rgba(0,0,0,0.4);
-    }
-
-    .screenshots img:hover {
-      transform: scale(1.05);
-      box-shadow: 0 0 15px rgba(255,255,255,0.3);
-    }
-
-    footer {
+    .hero {
       text-align: center;
+      padding: 40px 0;
+    }
+    .hero img {
+      max-width: 90%;
+      height: auto;
+      border: 5px solid #333;
+    }
+    .container {
+      width: 90%;
+      max-width: 960px;
+      margin: 40px auto;
+      line-height: 1.6;
+    }
+    .features {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 20px;
+    }
+    .feature-box {
+      background-color: #222;
       padding: 20px;
-      color: #aaa;
-      font-size: 0.9rem;
-      border-top: 1px solid #555;
-      margin-top: 40px;
+      border-radius: 8px;
+    }
+    .cta {
+      text-align: center;
+      margin: 60px 0;
+    }
+    .cta a {
+      display: inline-block;
+      padding: 15px 30px;
+      background-color: #f0a500;
+      color: #111;
+      text-decoration: none;
+      font-size: 1.2em;
+      border-radius: 5px;
+    }
+    .cta a:hover {
+      background-color: #d18f00;
+    }
+    footer {
+      background-color: #111;
+      color: #777;
+      text-align: center;
+      padding: 20px 0;
+      margin-top: 80px;
     }
   </style>
 </head>
 <body>
+
   <header>
-    <h1>FartFling Jumpers</h1>
-    <p>A chill fan-made Gorilla Tag-inspired experience.</p>
+    <h1>Project Games V3</h1>
+    <nav>
+      <a href="#about">About</a>
+      <a href="#features">Features</a>
+      <a href="#media">Media</a>
+      <a href="#download">Download</a>
+    </nav>
   </header>
 
-  <main>
-    <section>
-      <h2>About the Game</h2>
-      <p class="description">
-        Welcome to <strong>FartFling Jumpers</strong> — a goofy, fast-paced VR playground inspired by Gorilla Tag!  
-        Leap, fling, and fly through wacky maps with your friends.  
-        Enjoy parkour-style movement, funny physics, and chill vibes as you explore the world of fart-powered jumping!
-      </p>
+  <section class="hero">
+    <img src="https://cdn.discordapp.com/attachments/1369799022058930349/1447734574862827592/Project_Games_IS_BACK_1.png?ex=6938b364&is=693761e4&hm=5265ed3e200f1d93f3d55210cdb6c45db21f6c5102eaaadfe57d5632686fca6f&" alt="Project Games V3 — Hero Banner">
+  </section>
+
+  <div class="container">
+
+    <section id="about">
+      <h2>About Project Games V3</h2>
+      <p><strong>Project Games V3</strong> is a fast-paced, movement-focused fan game inspired by Gorilla Tag — delivering smooth physics, expressive cosmetics, and chaotic, high-energy tag-style gameplay. Whether you're racing friends, exploring hidden secrets, or mastering advanced parkour routes, Project Games V3 brings nonstop action and replayability.</p>
     </section>
 
-    <section>
-      <h2>Screenshots</h2>
-      <div class="screenshots">
-        <img src="https://imgur.com/a/jCdMAKW" alt="Screenshot 1">
-        <img src="https://imgur.com/a/jCdMAKW" alt="Screenshot 2">
-        <img src="https://imgur.com/a/jCdMAKW" alt="Screenshot 3">
+    <section id="features">
+      <h2>Features</h2>
+      <div class="features">
+        <div class="feature-box">
+          <h3>Fluid Movement & Physics</h3>
+          <p>Swing, climb, bounce, and launch yourself with physics-based movement that feels intuitive and immersive.</p>
+        </div>
+        <div class="feature-box">
+          <h3>Multiple Maps & Environments</h3>
+          <p>Explore a variety of handcrafted maps — from dense jungles to tricky obstacle courses — each offering unique challenges and secrets.</p>
+        </div>
+        <div class="feature-box">
+          <h3>Gamemodes for All Styles</h3>
+          <p>Speed-run races, free roam, hide-and-seek, or custom community modes. There’s something for everyone.</p>
+        </div>
+        <div class="feature-box">
+          <h3>Customizable Cosmetics</h3>
+          <p>Express yourself with skins, accessories, and more — stand out as a skillful, stylish gorilla in the crowd.</p>
+        </div>
       </div>
     </section>
-  </main>
+
+    <section id="media">
+      <h2>Media & Screenshots</h2>
+      <p>Coming soon! Replace this section with trailers, more screenshots, or gameplay videos once available.</p>
+    </section>
+
+    
+  </div>
 
   <footer>
-    © 2025 FartFling Jumpers Fan Game. Not affiliated with Another Axiom or Gorilla Tag.
+    <p>&copy; 2025 Project Games V3 | Fan-made game. Not affiliated with the original developers.</p>
   </footer>
+
 </body>
 </html>
