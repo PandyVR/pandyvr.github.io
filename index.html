@@ -1,183 +1,64 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Mustang Tag</title>
-  <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-      font-family: Arial, Helvetica, sans-serif;
-    }
+export default function ProjectGamesV4() {
+  return (
+    <div className="min-h-screen bg-black text-white font-sans">
+      {/* Hero Section */}
+      <section className="flex flex-col items-center justify-center text-center py-24 px-6 bg-gradient-to-b from-gray-900 to-black">
+        <h1 className="text-5xl md:text-7xl font-extrabold tracking-tight mb-6">
+          Project Games V4
+        </h1>
+        <p className="text-lg md:text-2xl text-gray-300 max-w-2xl mb-8">
+          A fast-paced multiplayer VR movement experience built for Meta Quest.
+          Climb. Launch. Outplay.
+        </p>
+        <div className="flex gap-4">
+          <button className="px-8 py-3 bg-white text-black font-semibold rounded-2xl shadow-lg hover:scale-105 transition">
+            Play Now
+          </button>
+          <button className="px-8 py-3 border border-gray-500 rounded-2xl hover:bg-gray-800 transition">
+            Join Community
+          </button>
+        </div>
+      </section>
 
-    body {
-      background: radial-gradient(circle at top, #1a1a1a, #000);
-      color: #fff;
-      min-height: 100vh;
-      overflow-x: hidden;
-    }
+      {/* Features Section */}
+      <section className="py-20 px-6 max-w-6xl mx-auto">
+        <h2 className="text-4xl font-bold text-center mb-16">Features</h2>
+        <div className="grid md:grid-cols-3 gap-10">
+          <div className="bg-gray-900 p-8 rounded-2xl shadow-xl">
+            <h3 className="text-2xl font-semibold mb-4">Skill-Based Movement</h3>
+            <p className="text-gray-400">
+              Master advanced VR locomotion mechanics built for competitive players.
+            </p>
+          </div>
+          <div className="bg-gray-900 p-8 rounded-2xl shadow-xl">
+            <h3 className="text-2xl font-semibold mb-4">Multiplayer Modes</h3>
+            <p className="text-gray-400">
+              Compete with friends in fast-paced game modes across custom maps.
+            </p>
+          </div>
+          <div className="bg-gray-900 p-8 rounded-2xl shadow-xl">
+            <h3 className="text-2xl font-semibold mb-4">Frequent Updates</h3>
+            <p className="text-gray-400">
+              Constant improvements, new content, and evolving gameplay.
+            </p>
+          </div>
+        </div>
+      </section>
 
-    header {
-      padding: 80px 20px;
-      text-align: center;
-    }
+      {/* About Section */}
+      <section className="py-20 px-6 bg-gray-950 text-center">
+        <h2 className="text-4xl font-bold mb-8">About The Game</h2>
+        <p className="max-w-3xl mx-auto text-gray-400 text-lg">
+          Project Games V4 delivers smooth performance and high-intensity action
+          designed specifically for VR. Whether you are grinding for the top
+          spot or just playing for fun, this is movement freedom at its peak.
+        </p>
+      </section>
 
-    header h1 {
-      font-size: 4rem;
-      letter-spacing: 2px;
-      text-transform: uppercase;
-      color: #ff3b3b;
-      text-shadow: 0 0 20px rgba(255, 59, 59, 0.6);
-    }
-
-    header p {
-      margin-top: 20px;
-      font-size: 1.2rem;
-      opacity: 0.9;
-      max-width: 700px;
-      margin-left: auto;
-      margin-right: auto;
-    }
-
-    .cta {
-      margin-top: 40px;
-    }
-
-    .cta a {
-      display: inline-block;
-      padding: 15px 40px;
-      background: #ff3b3b;
-      color: #000;
-      font-weight: bold;
-      text-decoration: none;
-      border-radius: 40px;
-      box-shadow: 0 0 25px rgba(255, 59, 59, 0.6);
-      transition: transform 0.2s ease, box-shadow 0.2s ease;
-    }
-
-    .cta a:hover {
-      transform: scale(1.05);
-      box-shadow: 0 0 40px rgba(255, 59, 59, 0.9);
-    }
-
-    section {
-      padding: 80px 20px;
-      max-width: 1100px;
-      margin: auto;
-    }
-
-    section h2 {
-      font-size: 2.5rem;
-      margin-bottom: 30px;
-      text-align: center;
-      color: #ff3b3b;
-    }
-
-    .features {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-      gap: 30px;
-    }
-
-    .card {
-      background: rgba(255, 255, 255, 0.05);
-      border-radius: 20px;
-      padding: 30px;
-      backdrop-filter: blur(10px);
-      transition: transform 0.2s ease, background 0.2s ease;
-    }
-
-    .card:hover {
-      transform: translateY(-8px);
-      background: rgba(255, 255, 255, 0.08);
-    }
-
-    .card h3 {
-      margin-bottom: 15px;
-      color: #ff3b3b;
-    }
-
-    .card p {
-      opacity: 0.9;
-      line-height: 1.5;
-    }
-
-    footer {
-      padding: 40px 20px;
-      text-align: center;
-      opacity: 0.6;
-      font-size: 0.9rem;
-    }
-
-    .speed-lines {
-      position: fixed;
-      inset: 0;
-      pointer-events: none;
-      background: repeating-linear-gradient(
-        120deg,
-        rgba(255,255,255,0.04) 0px,
-        rgba(255,255,255,0.04) 1px,
-        transparent 1px,
-        transparent 40px
-      );
-      animation: moveLines 10s linear infinite;
-    }
-
-    @keyframes moveLines {
-      from { background-position: 0 0; }
-      to { background-position: 1000px 600px; }
-    }
-  </style>
-</head>
-<body>
-  <div class="speed-lines"></div>
-
-  <header>
-    <h1>Mustang Tag</h1>
-    <p>
-      A fast-paced gorilla tag fan game built for speed, chaos, and nonstop movement.
-      Swing, climb, and launch yourself through intense maps and game modes where every round feels wild.
-    </p>
-    <div class="cta">
-      <a href="#features">Learn More</a>
+      {/* Footer */}
+      <footer className="py-10 text-center text-gray-500 border-t border-gray-800">
+        © {new Date().getFullYear()} Project Games V4. All Rights Reserved.
+      </footer>
     </div>
-  </header>
-
-  <section id="features">
-    <h2>Why Mustang Tag?</h2>
-    <div class="features">
-      <div class="card">
-        <h3>⚡ High-Speed Movement</h3>
-        <p>
-          Fluid monke movement designed for fast chases, tight turns, and insane momentum.
-        </p>
-      </div>
-      <div class="card">
-        <h3>🦍 Chaos-Driven Gameplay</h3>
-        <p>
-          No boring rounds. Every match is unpredictable, intense, and full of clutch moments.
-        </p>
-      </div>
-      <div class="card">
-        <h3>🗺️ Unique Maps</h3>
-        <p>
-          Vertical arenas, experimental layouts, and maps built to keep you moving nonstop.
-        </p>
-      </div>
-      <div class="card">
-        <h3>👥 Built for Friends</h3>
-        <p>
-          Whether you're sweating or being a silly monke, Mustang Tag is best enjoyed together.
-        </p>
-      </div>
-    </div>
-  </section>
-
-  <footer>
-    <p>Mustang Tag is a fan-made game and is not affiliated with Gorilla Tag or Another Axiom.</p>
-    <p>© 2026 Mustang Tag</p>
-  </footer>
-</body>
-</html>
+  );
+}
