@@ -1,63 +1,124 @@
+import { motion } from "framer-motion";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent } from "@/components/ui/card";
+import { Zap, Trophy, Users, Rocket } from "lucide-react";
+
 export default function ProjectGamesV4() {
   return (
-    <div className="min-h-screen bg-black text-white font-sans">
-      {/* Hero Section */}
-      <section className="flex flex-col items-center justify-center text-center py-24 px-6 bg-gradient-to-b from-gray-900 to-black">
-        <h1 className="text-5xl md:text-7xl font-extrabold tracking-tight mb-6">
-          Project Games V4
-        </h1>
-        <p className="text-lg md:text-2xl text-gray-300 max-w-2xl mb-8">
-          A fast-paced multiplayer VR movement experience built for Meta Quest.
-          Climb. Launch. Outplay.
-        </p>
-        <div className="flex gap-4">
-          <button className="px-8 py-3 bg-white text-black font-semibold rounded-2xl shadow-lg hover:scale-105 transition">
-            Play Now
-          </button>
-          <button className="px-8 py-3 border border-gray-500 rounded-2xl hover:bg-gray-800 transition">
-            Join Community
-          </button>
+    <div className="min-h-screen bg-black text-white overflow-hidden">
+      {/* Animated Background Glow */}
+      <div className="absolute inset-0 -z-10">
+        <div className="absolute w-[600px] h-[600px] bg-purple-600 opacity-20 blur-3xl rounded-full top-[-200px] left-[-200px] animate-pulse" />
+        <div className="absolute w-[500px] h-[500px] bg-cyan-500 opacity-20 blur-3xl rounded-full bottom-[-200px] right-[-200px] animate-pulse" />
+      </div>
+
+      {/* Navbar */}
+      <nav className="flex justify-between items-center px-8 py-6 border-b border-white/10 backdrop-blur-md">
+        <h1 className="text-2xl font-bold tracking-widest">PROJECT GAMES V4</h1>
+        <div className="flex gap-6 text-sm text-gray-300">
+          <a href="#features" className="hover:text-white transition">Features</a>
+          <a href="#about" className="hover:text-white transition">About</a>
+          <a href="#community" className="hover:text-white transition">Community</a>
         </div>
+      </nav>
+
+      {/* Hero Section */}
+      <section className="flex flex-col items-center justify-center text-center py-32 px-6">
+        <motion.h2
+          initial={{ opacity: 0, y: 40 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8 }}
+          className="text-6xl md:text-8xl font-extrabold bg-gradient-to-r from-purple-400 to-cyan-400 bg-clip-text text-transparent drop-shadow-2xl"
+        >
+          MOVE DIFFERENT
+        </motion.h2>
+
+        <motion.p
+          initial={{ opacity: 0, y: 40 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.2, duration: 0.8 }}
+          className="text-xl text-gray-300 max-w-2xl mt-6"
+        >
+          A next-generation VR movement experience built for Meta Quest.
+          Climb. Launch. Dominate.
+        </motion.p>
+
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 0.4, duration: 1 }}
+          className="flex gap-6 mt-10"
+        >
+          <Button className="rounded-2xl px-8 py-6 text-lg bg-gradient-to-r from-purple-500 to-cyan-500 hover:scale-110 transition-all shadow-2xl">
+            Play Now
+          </Button>
+          <Button variant="outline" className="rounded-2xl px-8 py-6 text-lg hover:bg-white/10">
+            Join Discord
+          </Button>
+        </motion.div>
       </section>
 
       {/* Features Section */}
-      <section className="py-20 px-6 max-w-6xl mx-auto">
-        <h2 className="text-4xl font-bold text-center mb-16">Features</h2>
-        <div className="grid md:grid-cols-3 gap-10">
-          <div className="bg-gray-900 p-8 rounded-2xl shadow-xl">
-            <h3 className="text-2xl font-semibold mb-4">Skill-Based Movement</h3>
-            <p className="text-gray-400">
-              Master advanced VR locomotion mechanics built for competitive players.
-            </p>
-          </div>
-          <div className="bg-gray-900 p-8 rounded-2xl shadow-xl">
-            <h3 className="text-2xl font-semibold mb-4">Multiplayer Modes</h3>
-            <p className="text-gray-400">
-              Compete with friends in fast-paced game modes across custom maps.
-            </p>
-          </div>
-          <div className="bg-gray-900 p-8 rounded-2xl shadow-xl">
-            <h3 className="text-2xl font-semibold mb-4">Frequent Updates</h3>
-            <p className="text-gray-400">
-              Constant improvements, new content, and evolving gameplay.
-            </p>
-          </div>
+      <section id="features" className="py-24 px-8 max-w-6xl mx-auto">
+        <h3 className="text-4xl font-bold text-center mb-16">Game Features</h3>
+        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+          <Card className="bg-white/5 border-white/10 backdrop-blur-xl rounded-2xl hover:scale-105 transition">
+            <CardContent className="p-8 text-center">
+              <Zap className="mx-auto mb-4" size={40} />
+              <h4 className="text-xl font-semibold mb-2">Advanced Movement</h4>
+              <p className="text-gray-400 text-sm">High-skill locomotion built for competitive players.</p>
+            </CardContent>
+          </Card>
+
+          <Card className="bg-white/5 border-white/10 backdrop-blur-xl rounded-2xl hover:scale-105 transition">
+            <CardContent className="p-8 text-center">
+              <Trophy className="mx-auto mb-4" size={40} />
+              <h4 className="text-xl font-semibold mb-2">Competitive Modes</h4>
+              <p className="text-gray-400 text-sm">Infection, battle, and evolving challenges.</p>
+            </CardContent>
+          </Card>
+
+          <Card className="bg-white/5 border-white/10 backdrop-blur-xl rounded-2xl hover:scale-105 transition">
+            <CardContent className="p-8 text-center">
+              <Users className="mx-auto mb-4" size={40} />
+              <h4 className="text-xl font-semibold mb-2">Multiplayer</h4>
+              <p className="text-gray-400 text-sm">Play with friends or compete globally.</p>
+            </CardContent>
+          </Card>
+
+          <Card className="bg-white/5 border-white/10 backdrop-blur-xl rounded-2xl hover:scale-105 transition">
+            <CardContent className="p-8 text-center">
+              <Rocket className="mx-auto mb-4" size={40} />
+              <h4 className="text-xl font-semibold mb-2">Constant Updates</h4>
+              <p className="text-gray-400 text-sm">New maps, mechanics, and improvements.</p>
+            </CardContent>
+          </Card>
         </div>
       </section>
 
       {/* About Section */}
-      <section className="py-20 px-6 bg-gray-950 text-center">
-        <h2 className="text-4xl font-bold mb-8">About The Game</h2>
-        <p className="max-w-3xl mx-auto text-gray-400 text-lg">
-          Project Games V4 delivers smooth performance and high-intensity action
-          designed specifically for VR. Whether you are grinding for the top
-          spot or just playing for fun, this is movement freedom at its peak.
+      <section id="about" className="py-24 px-8 bg-white/5 backdrop-blur-xl text-center">
+        <h3 className="text-4xl font-bold mb-8">About Project Games V4</h3>
+        <p className="max-w-3xl mx-auto text-gray-300 text-lg leading-relaxed">
+          Project Games V4 pushes VR movement to its limits. Built for smooth
+          Meta Quest performance, the game rewards precision, creativity, and
+          mastery. Whether you're grinding leaderboards or vibing with friends,
+          every match is pure adrenaline.
         </p>
       </section>
 
+      {/* Community Section */}
+      <section id="community" className="py-24 px-8 text-center">
+        <h3 className="text-4xl font-bold mb-6">Join The Community</h3>
+        <p className="text-gray-400 mb-10">Stay updated and connect with players.</p>
+        <Button className="rounded-2xl px-10 py-6 text-lg bg-gradient-to-r from-purple-500 to-cyan-500 hover:scale-110 transition-all shadow-2xl">
+          Join Discord
+        </Button>
+      </section>
+
       {/* Footer */}
-      <footer className="py-10 text-center text-gray-500 border-t border-gray-800">
-        © {new Date().getFullYear()} Project Games V4. All Rights Reserved.
+      <footer className="py-10 text-center text-gray-500 border-t border-white/10">
+        © {new Date().getFullYear()} Project Games V4 — All Rights Reserved
       </footer>
     </div>
   );
