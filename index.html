@@ -1,162 +1,275 @@
-<!DOCTYPE html>
-<html>
+<!doctype html>
+<html lang="en">
 <head>
-  <title>Project Games V4</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <style>
-    body {
-      margin: 0;
-      font-family: Arial, sans-serif;
-      background: radial-gradient(circle at top left, #7c3aed, #000);
-      color: white;
-      overflow-x: hidden;
-    }
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 
-    nav {
-      display: flex;
-      justify-content: space-between;
-      padding: 20px 40px;
-      background: rgba(0,0,0,0.6);
-      backdrop-filter: blur(10px);
-    }
+<title>Pandy Studios</title>
 
-    nav a {
-      color: #ccc;
-      text-decoration: none;
-      margin-left: 20px;
-    }
+<link rel="stylesheet" href="assets/css/styles.css">
 
-    nav a:hover {
-      color: white;
-    }
-
-    .hero {
-      text-align: center;
-      padding: 120px 20px;
-    }
-
-    .hero h1 {
-      font-size: 70px;
-      background: linear-gradient(to right, #a855f7, #22d3ee);
-      -webkit-background-clip: text;
-      color: transparent;
-    }
-
-    .hero p {
-      font-size: 20px;
-      color: #ccc;
-      max-width: 600px;
-      margin: auto;
-    }
-
-    .buttons {
-      margin-top: 40px;
-    }
-
-    .btn {
-      padding: 15px 30px;
-      margin: 10px;
-      border-radius: 12px;
-      border: none;
-      font-size: 18px;
-      cursor: pointer;
-      transition: 0.3s;
-    }
-
-    .primary {
-      background: linear-gradient(to right, #a855f7, #22d3ee);
-      color: white;
-    }
-
-    .primary:hover {
-      transform: scale(1.1);
-    }
-
-    .outline {
-      background: transparent;
-      border: 2px solid white;
-      color: white;
-    }
-
-    .section {
-      padding: 80px 20px;
-      text-align: center;
-    }
-
-    .cards {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-      gap: 30px;
-      margin-top: 40px;
-      padding: 0 40px;
-    }
-
-    .card {
-      background: rgba(255,255,255,0.05);
-      padding: 30px;
-      border-radius: 20px;
-      backdrop-filter: blur(10px);
-      transition: 0.3s;
-    }
-
-    .card:hover {
-      transform: scale(1.05);
-      background: rgba(255,255,255,0.1);
-    }
-
-    footer {
-      text-align: center;
-      padding: 30px;
-      border-top: 1px solid rgba(255,255,255,0.2);
-      color: #888;
-    }
-  </style>
 </head>
+
 <body>
 
-<nav>
-  <h2>PROJECT GAMES V4</h2>
-  <div>
-    <a href="#">Features</a>
-    <a href="#">About</a>
-    <a href="#">Community</a>
-  </div>
-</nav>
+<header class="site-header">
+  <div class="container header-flex">
 
-<div class="hero">
-  <h1>MOVE DIFFERENT</h1>
-  <p>A next-generation VR movement experience built for Meta Quest. Climb. Launch. Dominate.</p>
-  <div class="buttons">
-    <button class="btn primary">Play Now</button>
-    <button class="btn outline">Join Discord</button>
+    <h1 class="brand">Pandy Studios</h1>
+
+    <nav aria-label="Main Navigation">
+      <ul class="nav-list">
+        <li>
+          <button class="nav-tab active"
+            role="tab"
+            aria-selected="true"
+            aria-controls="home-panel"
+            data-tab-target="#home-panel">
+            Home
+          </button>
+        </li>
+
+        <li>
+          <button class="nav-tab"
+            role="tab"
+            aria-selected="false"
+            aria-controls="primal-panel"
+            data-tab-target="#primal-panel">
+            Primal Dread
+          </button>
+        </li>
+      </ul>
+    </nav>
+
   </div>
+</header>
+
+
+<main class="container">
+
+<!-- HOME PANEL -->
+
+<section
+  id="home-panel"
+  class="tab-panel active"
+  role="tabpanel">
+
+  <div class="hero">
+
+    <h2>Welcome to Pandy Studios</h2>
+
+    <p>
+      We build immersive VR experiences and experimental games.
+      Explore our newest project below.
+    </p>
+
+    <button
+      class="cta-button"
+      data-tab-target="#primal-panel">
+
+      View Primal Dread
+
+    </button>
+
+  </div>
+
+</section>
+
+
+<!-- PRIMAL DREAD PANEL -->
+
+<section
+  id="primal-panel"
+  class="tab-panel"
+  role="tabpanel">
+
+  <h2 class="game-title">Primal Dread</h2>
+
+  <!-- SUB TAB NAV -->
+
+  <div
+    class="subtabs"
+    role="tablist"
+    aria-label="Primal Dread Sections">
+
+    <button
+      role="tab"
+      class="subtab active"
+      aria-selected="true"
+      aria-controls="screenshots-panel"
+      data-subtab-target="#screenshots-panel">
+
+      Screenshots
+
+    </button>
+
+    <button
+      role="tab"
+      class="subtab"
+      aria-selected="false"
+      aria-controls="privacy-panel"
+      data-subtab-target="#privacy-panel">
+
+      Privacy Policy
+
+    </button>
+
+    <button
+      role="tab"
+      class="subtab"
+      aria-selected="false"
+      aria-controls="download-panel"
+      data-subtab-target="#download-panel">
+
+      Download
+
+    </button>
+
+  </div>
+
+
+<!-- SCREENSHOTS -->
+
+<section
+  id="screenshots-panel"
+  class="subtab-panel active"
+  role="tabpanel">
+
+  <div class="screenshot-grid">
+
+    <figure>
+      <img src="assets/images/placeholder.svg" alt="Primal Dread screenshot placeholder">
+      <figcaption>Gameplay environment</figcaption>
+    </figure>
+
+    <figure>
+      <img src="assets/images/placeholder.svg" alt="Primal Dread screenshot placeholder">
+      <figcaption>Exploration area</figcaption>
+    </figure>
+
+    <figure>
+      <img src="assets/images/placeholder.svg" alt="Primal Dread screenshot placeholder">
+      <figcaption>Creature encounter</figcaption>
+    </figure>
+
+    <figure>
+      <img src="assets/images/placeholder.svg" alt="Primal Dread screenshot placeholder">
+      <figcaption>Night mode gameplay</figcaption>
+    </figure>
+
+  </div>
+
+</section>
+
+
+<!-- PRIVACY POLICY -->
+
+<section
+  id="privacy-panel"
+  class="subtab-panel"
+  role="tabpanel">
+
+<article class="privacy">
+
+<h3>Privacy Policy</h3>
+
+<section>
+<h4>Data Collected</h4>
+<p>
+Primal Dread may collect minimal gameplay analytics such as device type,
+game version, and crash reports in order to improve stability.
+No personally identifiable information is intentionally collected.
+</p>
+</section>
+
+<section>
+<h4>Cookies</h4>
+<p>
+This website may use basic cookies or local storage for preferences
+such as theme settings.
+</p>
+</section>
+
+<section>
+<h4>Security</h4>
+<p>
+We implement reasonable security measures to protect user data.
+However, no system can guarantee absolute protection.
+</p>
+</section>
+
+<section>
+<h4>Your Rights</h4>
+<p>
+You may request deletion of any stored analytics data where applicable.
+</p>
+</section>
+
+<section>
+<h4>Changes</h4>
+<p>
+This privacy policy may be updated periodically. Changes will be posted here.
+</p>
+</section>
+
+</article>
+
+</section>
+
+
+<!-- DOWNLOAD -->
+
+<section
+  id="download-panel"
+  class="subtab-panel"
+  role="tabpanel">
+
+<div class="download-box">
+
+<h3>Download Primal Dread</h3>
+
+<p class="version">
+Version: <strong>v0.1.0</strong>
+</p>
+
+<p>
+Download the latest build of Primal Dread.
+</p>
+
+<a
+  class="download-button"
+  href="downloads/pandy-primal-dread.zip"
+  download>
+
+Download Game
+
+</a>
+
+<div class="changelog">
+
+<h4>Changelog</h4>
+
+<ul>
+<li>Initial demo release</li>
+<li>Basic gameplay mechanics</li>
+<li>Environment prototype</li>
+</ul>
+
 </div>
 
-<div class="section">
-  <h2>Game Features</h2>
-  <div class="cards">
-    <div class="card">
-      <h3>Advanced Movement</h3>
-      <p>High-skill locomotion built for competitive players.</p>
-    </div>
-    <div class="card">
-      <h3>Competitive Modes</h3>
-      <p>Infection, battle, and evolving challenges.</p>
-    </div>
-    <div class="card">
-      <h3>Multiplayer</h3>
-      <p>Play with friends or compete globally.</p>
-    </div>
-    <div class="card">
-      <h3>Constant Updates</h3>
-      <p>New maps, mechanics, and improvements.</p>
-    </div>
-  </div>
 </div>
 
-<footer>
-  © 2026 Project Games V4 — All Rights Reserved
+</section>
+
+</section>
+
+</main>
+
+<footer class="site-footer">
+<p>© 2026 Pandy Studios</p>
 </footer>
+
+<script src="assets/js/scripts.js"></script>
 
 </body>
 </html>
